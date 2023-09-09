@@ -1,11 +1,14 @@
 ﻿open FsHttp
+open System.IO
 
 let SAVE_PATH = $"{__SOURCE_DIRECTORY__}/../../tmp"
 
-let downloadIcon url filename =
+let downloadIcon url fileName =
     http { GET url }
     |> Request.send
-    |> Response.saveFile ($"{SAVE_PATH}/{filename}.svg")
+    |> Response.toStringAsync None
+    |> Async.RunSynchronously
+    |> fun svg -> File.WriteAllText(fileName, svg)
 
 let getDefaultIconURL name =
     $"https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsrounded/{name}/wght200/24px.svg"
@@ -35,22 +38,21 @@ type Args =
 
 [<EntryPoint>]
 let main argv =
-    let parser = ArgumentParser.Create<Args>(programName = "ls")
+    let parser = ArgumentParser.Create<Args>(programName = "icon downloader")
     let parseResults = parser.ParseCommandLine argv
-    let name = parseResults.GetResult Name
-    let style = parseResults.TryGetResult Style |> Option.defaultValue Default
-    name |> printfn "Icon Name: %A"
-    style |> printfn "Icon Style: %A"
+    printfn "%A" parseResults
 
-    let url, filename =
+    let url, fileName =
+        let name = parseResults.GetResult Name
+        let style = parseResults.TryGetResult Style |> Option.defaultValue Default
+
         match style with
         | Default -> getDefaultIconURL name, name
         | Bold -> getBoldIconURL name, $"{name}_bold"
         | Filled -> getFilledIconURL name, $"{name}_filled"
 
-    url |> printfn "Icon URL: %A"
-    filename |> printfn "Icon Filename: %A"
-    downloadIcon url filename
+    let path = $"{SAVE_PATH}/{fileName}.svg"
+    downloadIcon url path
     0
 
 
