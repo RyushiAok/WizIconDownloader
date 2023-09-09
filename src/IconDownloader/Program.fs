@@ -1,5 +1,10 @@
 ﻿open FsHttp
 open System.IO
+open System.Text.RegularExpressions
+
+
+let widthRegex = Regex(@"width=""(\d+)""", RegexOptions.Compiled)
+let heightRegex = Regex(@"height=""(\d+)""", RegexOptions.Compiled)
 
 let downloadIcon url (filePath: string) =
     http { GET url }
@@ -12,7 +17,9 @@ let downloadIcon url (filePath: string) =
         if not <| Directory.Exists(dir) then
             Directory.CreateDirectory(dir) |> ignore
 
-        File.WriteAllText(filePath, svg)
+        widthRegex.Replace(svg, @"width=""1rem""")
+        |> fun svg -> heightRegex.Replace(svg, @"height=""1rem""")
+        |> fun svg -> File.WriteAllText(filePath, svg)
 
 
 /// default
@@ -69,10 +76,12 @@ let main argv =
         printfn $"name: {name}, style: {style}"
 
         let fileName =
+            let name = name.Replace("_", "-")
+
             match style with
             | Default -> name
-            | Bold -> $"{name}_bold"
-            | Filled -> $"{name}_filled"
+            | Bold -> $"{name}-bold"
+            | Filled -> $"{name}-filled"
 
         let filePath = $"{outPath}/{fileName}.svg"
 
