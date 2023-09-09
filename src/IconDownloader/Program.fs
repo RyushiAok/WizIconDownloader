@@ -17,8 +17,8 @@ let downloadIcon url (filePath: string) =
         if not <| Directory.Exists(dir) then
             Directory.CreateDirectory(dir) |> ignore
 
-        widthRegex.Replace(svg, @"width=""1rem""")
-        |> fun svg -> heightRegex.Replace(svg, @"height=""1rem""")
+        widthRegex.Replace(svg, @"width=""1em""")
+        |> fun svg -> heightRegex.Replace(svg, @"height=""1em""")
         |> fun svg -> File.WriteAllText(filePath, svg)
 
 
