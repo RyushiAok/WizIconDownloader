@@ -5,5 +5,5 @@ args = ["run", "--name", "${@}", "--out", "../../tmp"]
 
 [tasks.bold-icon]
 cwd = "src/IconDownloader"
-script_runner = "shell"
-args = ["run", "--name", "${@}", "--out", "../../tmp"]
+command = "dotnet"
+args = ["run", "--name", "${@}", "--style", "bold", "--out", "../../tmp"]
