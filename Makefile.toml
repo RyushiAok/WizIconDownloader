@@ -1,9 +1,9 @@
 [tasks.default-icon]
 cwd = "src/IconDownloader"
-command = "dotnet"
-args = ["run", "--name", "${@}", "--out", "../../tmp"]
+script_runner = "@shell"
+script = "dotnet run --name ${@} --out ../../out"
 
 [tasks.bold-icon]
 cwd = "src/IconDownloader"
-command = "dotnet"
-args = ["run", "--name", "${@}", "--style", "bold", "--out", "../../tmp"]
+script_runner = "@shell"
+script = "dotnet run --name ${@} --style bold --out ../../out"

@@ -57,6 +57,8 @@ type Args =
             | Style _ -> "specify icon style"
             | Out _ -> "specify output path"
 
+let (/) path1 path2 = Path.Combine(path1, path2)
+
 [<EntryPoint>]
 let main argv =
 
@@ -70,7 +72,7 @@ let main argv =
 
         let outPath =
             parseResults.TryGetResult Out
-            |> Option.defaultValue $"{__SOURCE_DIRECTORY__}/../../tmp"
+            |> Option.defaultValue (__SOURCE_DIRECTORY__ / "../../tmp")
 
 
         printfn $"name: {name}, style: {style}"
@@ -83,7 +85,7 @@ let main argv =
             | Bold -> $"{name}-bold"
             | Filled -> $"{name}-filled"
 
-        let filePath = $"{outPath}/{fileName}.svg"
+        let filePath = outPath / $"{fileName}.svg"
 
         let url = getIconURL style name
         printfn $"url: {url}"
