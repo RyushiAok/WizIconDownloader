@@ -1,7 +1,14 @@
-# Usage
+# WizIconDownloader
+
+## Usage
 
 ```sh
-nix run .#default <icon_name>
-nix run .#bold <icon_name>
-nix run .#filled <icon_name>
+# WizIKebabCase
+nix run .#default <kebab-case>
+
+# WizIKebabCaseBold
+nix run .#bold <kebab-case>
+
+# WizIKebabCaseFilled
+nix run .#filled <kebab-case>
 ```
