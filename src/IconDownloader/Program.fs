@@ -72,7 +72,7 @@ let main argv =
 
         let outPath =
             parseResults.TryGetResult Out
-            |> Option.defaultValue (__SOURCE_DIRECTORY__ / "../../tmp")
+            |> Option.defaultValue (__SOURCE_DIRECTORY__ / "../../out")
 
 
         printfn $"name: {name}, style: {style}"
