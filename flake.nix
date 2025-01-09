@@ -33,7 +33,7 @@
 
           # Add command-line executables
           packages = {
-            default-icon = pkgs.writeShellScriptBin "default-icon" ''
+            default = pkgs.writeShellScriptBin "default" ''
               if [ -z "$1" ]; then
                 echo "Usage: default-icon <name>"
                 exit 1
@@ -41,7 +41,7 @@
               ${pkgs.dotnet-sdk_9}/bin/dotnet run --project src/IconDownloader --name "$1"
             '';
 
-            bold-icon = pkgs.writeShellScriptBin "bold-icon" ''
+            bold = pkgs.writeShellScriptBin "bold" ''
               if [ -z "$1" ]; then
                 echo "Usage: bold-icon <name>"
                 exit 1
@@ -49,7 +49,7 @@
               ${pkgs.dotnet-sdk_9}/bin/dotnet run --project src/IconDownloader --name "$1" --style bold
             '';
 
-            filled-icon = pkgs.writeShellScriptBin "filled-icon" ''
+            filled = pkgs.writeShellScriptBin "filled" ''
               if [ -z "$1" ]; then
                 echo "Usage: filled-icon <name>"
                 exit 1
