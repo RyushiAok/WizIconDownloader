@@ -3,12 +3,12 @@
 ## Usage
 
 ```sh
-# WizIKebabCase
+# WizISnakeCase
 nix run .#default <snake_case>
 
-# WizIKebabCaseBold
+# WizISnakeCaseBold
 nix run .#bold <snake_case>
 
-# WizIKebabCaseFilled
+# WizISnakeCaseFilled
 nix run .#filled <snake_case>
 ```
