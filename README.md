@@ -4,11 +4,11 @@
 
 ```sh
 # WizIKebabCase
-nix run .#default <kebab-case>
+nix run .#default <snake_case>
 
 # WizIKebabCaseBold
-nix run .#bold <kebab-case>
+nix run .#bold <snake_case>
 
 # WizIKebabCaseFilled
-nix run .#filled <kebab-case>
+nix run .#filled <snake_case>
 ```
